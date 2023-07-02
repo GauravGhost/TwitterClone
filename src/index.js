@@ -1,23 +1,21 @@
-import express from 'express';
+import express, { json, urlencoded } from 'express';
 
 import connect from './config/database.js';
-
-
-import {TweetRepository} from './repositories/index.js';
-import TweetService from './services/tweet-service.js';
+import apiRoutes from './routes/index.js';
 
 const app = express();
 
-app.get('/', (req, res) => {
-    return res.send("Hello from root")
-});
+app.use(express.json());
+app.use(express.urlencoded({extended: true}));
+
+app.use('/api', apiRoutes);
 
 
 app.listen(4000, async () => {
     console.log(`Server started at 4000`);
     await connect();
     console.log("Database connected");
-    let ser = new TweetService();
-    let result = await ser.create({content: "Dne with this #NOSTALGIC"})
-    console.log(result)
+    // let ser = new TweetService();
+    // let result = await ser.create({content: "Dne with this #NOSTALGIC"})
+    // console.log(result)
 })
