@@ -1,8 +1,9 @@
-const mongoose = require('mongoose');
-const {MONGODB_URL} = require('./serverConfig')
-const connect = async() => {
+import mongoose from 'mongoose';
+import { MONGODB_URL } from './serverConfig.js';
+
+export const connect = async() => {
     await mongoose.connect(MONGODB_URL);
 }
 
 
-module.exports = connect;
+export default connect;

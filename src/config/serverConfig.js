@@ -1,8 +1,6 @@
-const dotenv = require('dotenv')
+import { config } from 'dotenv';
 
-dotenv.config();
+config();
 
 
-module.exports = {
-    MONGODB_URL: process.env.MONGODB_URL
-}
+export const MONGODB_URL = process.env.MONGODB_URL;
