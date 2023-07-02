@@ -6,6 +6,15 @@ class TweetRepository extends CrudRepository {
         super(Tweet)
     }
 
+    async get(id) {
+        try {
+            const response = await Tweet.findById(id).populate({path: 'likes'});
+            return response;
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
     async getWithComments(id){
         try {
             const tweet = await Tweet.findById(id).populate({path: 'comments'});
