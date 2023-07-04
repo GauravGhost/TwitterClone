@@ -1,18 +1,19 @@
-import { TweetRepository, LikeRepository } from "../repositories/index.js";
+import { TweetRepository, LikeRepository, CommentRepository } from "../repositories/index.js";
 import ApiError from "../utils/Error/ApiError.js";
 import StatusCodes from 'http-status-codes'
 
 class LikeService {
     constructor(){
         this.likeRepository = new LikeRepository();
-        this.tweetRepository = new TweetRepository
+        this.tweetRepository = new TweetRepository();
+        this.commentRepository = new CommentRepository();
     }
 
     async toggleLike(modelId, modelType, userId) {
         if(modelType === 'Tweet') {
             var likeable = await this.tweetRepository.get(modelId);
         } else if(modelType === 'Comment'){
-            console.log("comment")
+            likeable = await this.commentRepository.get(modelId);
         } else{
             throw new ApiError(StatusCodes.BAD_GATEWAY, "Unknown model type");
         }

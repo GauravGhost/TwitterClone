@@ -20,7 +20,13 @@ const commentSchema = new Schema({
         type: Schema.Types.ObjectId,
         required: true,
         refPath: 'onModel'
-    }
+    },
+    comments: [
+        {
+            type: Schema.Types.ObjectId,
+            ref: 'Comment'
+        }
+    ]
 },
     {
         timestamps: true

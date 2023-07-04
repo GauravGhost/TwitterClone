@@ -1,3 +1,4 @@
+import { StatusCodes } from 'http-status-codes';
 import { TweetRepository, HashtagRepository } from '../repositories/index.js';
 
 class TweetService {
@@ -28,6 +29,12 @@ class TweetService {
 
         return tweet;
     }
+
+    async get(id){
+            const tweet = await this.tweetRepository.getWithComments(id);
+            return tweet;
+    }
+
 }
 
 
