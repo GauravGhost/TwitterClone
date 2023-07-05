@@ -15,7 +15,6 @@ class TweetService {
         const tweet = await this.tweetRepository.create(data);
         
         let alreadyPresentTags = await this.hashtagRepository.getByName(tags);
-        console.log(alreadyPresentTags);
         let titleOfPresent = alreadyPresentTags.map((tag) => tag.title)
         let newTags = tags.filter(tag => { return !titleOfPresent.includes(tag) });
         newTags = newTags.map(tag => {

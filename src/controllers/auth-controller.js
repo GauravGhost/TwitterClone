@@ -3,7 +3,7 @@ import UserService from "../services/user-service.js";
 import { successResponse, errorResponse } from "../utils/common/index.js";
 const userService = new UserService();
 
-export const signup = async (req, res) =>{
+export const signup = async (req, res) => {
     try {
         const response = await userService.signup(
             {
@@ -15,14 +15,30 @@ export const signup = async (req, res) =>{
         successResponse.data = response;
         return res.status(StatusCodes.CREATED).json(successResponse)
     } catch (error) {
-        errorResponse.err = {name: error.name, message: error.message}
+        errorResponse.err = { name: error.name, message: error.message }
+        return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(errorResponse)
+    }
+}
+
+export const login = async (req, res) => {
+    try {
+        const user = await userService.getUserByEmail(
+            req.body.email,
+            req.body.password
+        );
+        const token = user.genJWT();
+        successResponse.data = {user: user, token: token};
+        return res.status(StatusCodes.CREATED).json(successResponse)
+    } catch (error) {
+        errorResponse.err = { name: error.name, message: error.message }
         return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(errorResponse)
     }
 }
 
 
 const indexExports = {
-    signup
+    signup,
+    login
 }
 
 export default indexExports;
