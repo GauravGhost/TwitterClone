@@ -11,7 +11,7 @@ export const createComment = async (req, res) => {
         const response = await commentService.createComment(
             req.query.modelId,
             req.query.modelType,
-            req.body.userId,
+            req.user.id,
             req.body.content
         )
         successResponse.data = response;

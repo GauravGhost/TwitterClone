@@ -18,7 +18,11 @@ const tweetSchema = new Schema({
             type: Schema.Types.ObjectId,
             ref: 'Comment'
         }
-    ]
+    ],
+    image: {
+        type: String
+    }
+
 },
     {
         timestamps: true

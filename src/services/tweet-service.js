@@ -10,14 +10,14 @@ class TweetService {
     async create(data) {
         const content = data.content;
         let tags = content.match(/#\w+/g);
-        tags = tags.map((tag) => tag.substring(1));
+        tags = tags?.map((tag) => tag.substring(1));
         
         const tweet = await this.tweetRepository.create(data);
         
         let alreadyPresentTags = await this.hashtagRepository.getByName(tags);
         let titleOfPresent = alreadyPresentTags.map((tag) => tag.title)
-        let newTags = tags.filter(tag => { return !titleOfPresent.includes(tag) });
-        newTags = newTags.map(tag => {
+        let newTags = tags?.filter(tag => { return !titleOfPresent.includes(tag) });
+        newTags = newTags?.map(tag => {
             return { title: tag, tweets: [tweet.id] }
         });
         await this.hashtagRepository.bulkCreate(newTags);

@@ -32,7 +32,7 @@ class LikeService {
             const newLike = await this.likeRepository.create(data);
             likeable.likes.push(newLike);
             await likeable.save();
-            var isAdded = true;
+            isAdded = true;
         }
         return isAdded;
     }
